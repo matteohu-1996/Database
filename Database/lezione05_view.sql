@@ -2,7 +2,7 @@
 
 create view studenti_contatto as
 select id, nome, cognome, email
-from studenti;
+from students;
 
 show tables;
 select table_name, table_type 
@@ -106,3 +106,14 @@ alter table students rename column genere to gender;
 
 show create view vw_studenti_contatto;
 select nome, cognome, email from vw_iscritti;
+
+alter view vw_studenti_contatto as
+select id, nome, cognome, email
+from students;
+
+select * from vw_studenti_contatto;
+
+insert into vw_studenti_contatto(nome, cognome, email)
+values("mario","zappone","mz@gmail.com");
+
+select * from students;
