@@ -177,4 +177,31 @@ values(1,"steven","account","1987-06-17",24000,10,"m", "S@gmail.com"),
 (3,"Guyy","clerk", "1998-11-15",2600,30,"f", "G@gmail,com"),
 (4,"Diana", "prog", "1999-02-07",4200,20,"f", "D@gmail,com"),
 (5,"Luis", "account", "1999-12-07",6900,10,"m", "L@gmail,com");
+
+update animale
+set nome="solo"
+where id =1;
+
+update animale
+set nome="pina", -- set si identificano le colonne da modificare
+	peso=20
+where id=2; -- where si identificano le righe da modificare
+
+update animale
+set eta=10
+where razza is null;
+
+-- cambiare specie in ameba per animali che hanno peso = 15 oppure eta = 7;
+update animale
+set specie="ameba"
+where peso =15 
+or eta = 7;
+
+-- cambiare razza cavallo per chi ha peso 15 e eta 10 
+update animale
+set razza ="cavallo"
+where peso =15
+and eta=10;
+
+
  
