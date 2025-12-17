@@ -75,7 +75,7 @@ values(15, "xx");
 
 -- in caso di duplicati il nuovo valore sostituisce quello vecchio
 replace into animale(id,nome)
-values(15,"yy");
+values(15,"cc");
 
 alter table animale modify id int not null;
 
@@ -178,6 +178,8 @@ values(1,"steven","account","1987-06-17",24000,10,"m", "S@gmail.com"),
 (4,"Diana", "prog", "1999-02-07",4200,20,"f", "D@gmail,com"),
 (5,"Luis", "account", "1999-12-07",6900,10,"m", "L@gmail,com");
 
+
+-- update
 update animale
 set nome="solo"
 where id =1;
@@ -189,13 +191,14 @@ where id=2; -- where si identificano le righe da modificare
 
 update animale
 set eta=10
-where razza is null;
+where razza is null; -- null è indefinito non è una uguaglianza
 
 -- cambiare specie in ameba per animali che hanno peso = 15 oppure eta = 7;
 update animale
 set specie="ameba"
 where peso =15 
-or eta = 7;
+or eta = 7
+and razza="ninja";
 
 -- cambiare razza cavallo per chi ha peso 15 e eta 10 
 update animale
@@ -203,5 +206,67 @@ set razza ="cavallo"
 where peso =15
 and eta=10;
 
+insert into animale(nome, peso)
+values("aa", 12);
 
- 
+update emp
+set job="sales"
+where deptno=10;
+
+
+update emp
+set sal= sal +(sal * 0.1)
+where job="account" and hire_date<"1998-01-01";
+
+update emp
+set job="impiegato"
+where (sal>"4000" and deptno =20) 
+or hire_date> "1997_01_01";
+
+-- delete
+delete from animale
+where nome="pina";
+
+delete from animale 
+where nome is null;
+
+delete from animale
+where peso=12 and eta is null;
+
+delete from emp
+where sal<7000 and deptno=20;
+
+delete from emp 
+where (job="sales" and sal>8000)
+or hire_date between "1999-01-01" and "1999-12-31";
+
+start transaction; # <- disabilita l'autocommit solo per questa istruzione
+delete from emp
+where deptno in (10,30)
+and (sal> 3000 and hire_date > "1994-12-31")
+or sal > 11000;
+
+select row_count(); -- numero di righe modificate dal comando
+
+-- obbligatorio confermare o annullare altrimenti la tabella rimane impegnata e nessuno la può usare
+commit; -- conferma
+rollback; -- annulla
+
+
+-- salvattaggi intermedi
+create table test(id int);
+start transaction; -- inizio una transazione
+insert into test 
+values(1);
+
+savepoint trans2; -- salvataggio punto di ripristino
+
+insert into test
+values (2);
+
+rollback to trans2; -- cancello tutto fino al savepoint
+
+commit; -- salvo e rendo permanenti le modifiche
+
+
+
