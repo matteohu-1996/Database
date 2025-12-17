@@ -110,3 +110,13 @@ and e1.sal >
 	where e1.deptno = e2.deptno
 	order by e2.sal desc
 	limit 1);
+
+select * from emp e1
+where e1.mgr is not null
+and e1.empno not in(
+
+	select empno from emp e2
+    where e2.sal > e1.sal 
+    and e1.DEPTNO = e2.DEPTNO
+    and e1.ENAME!= e2.ENAME
+);
