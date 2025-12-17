@@ -85,3 +85,28 @@ select * from emp
 where ename in ("lex","david")
 and sal > 10000;
 
+-- trovare i programmatori che guadagnano più di 6000€, il loro nome inizia con N e il loro capo è neena 
+select * from emp
+where job ="prog"
+and sal > 6000 and ename like "n%" 
+and (select mgr from emp where ename ="neena")
+and ename != "neena"; -- diverso 
+
+-- trovare tabella products i prodotti venduti col codice brs01, e i prodotti che costano meno di 4€ e che contengono la parola rabbit nella descrizione
+select * from products p
+where p.vend_id = "brs01" or prod_price < 4 and prod_desc like "rabbit";
+
+-- trovare dalla tabella customers solo i clienti che abitano in arizona, e i clienti che abitano a columbus ma non hanno l'email
+select * from customers c
+where c.cust_state ="AZ" 
+or c.cust_city ="columbus" and cust_email is null;
+
+-- trovare i dipendenti che hanno un manager, il suo stipendio è maggiore dello stipendio di tutti i dipendenti del suo dipartimento
+
+select * from emp e1
+where mgr is not null
+and e1.sal >
+	(select sal from emp  e2
+	where e1.deptno = e2.deptno
+	order by e2.sal desc
+	limit 1);
