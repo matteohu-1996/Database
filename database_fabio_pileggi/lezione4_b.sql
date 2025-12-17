@@ -104,9 +104,9 @@ or c.cust_city ="columbus" and cust_email is null;
 -- trovare i dipendenti che hanno un manager, il suo stipendio è maggiore dello stipendio di tutti i dipendenti del suo dipartimento
 
 select * from emp e1
-where mgr is not null
+where e1.mgr is not null
 and e1.sal >
-	(select sal from emp  e2
+	(select e2.sal from emp  e2
 	where e1.deptno = e2.deptno
 	order by e2.sal desc
 	limit 1);
