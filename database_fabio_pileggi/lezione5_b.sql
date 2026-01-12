@@ -125,3 +125,11 @@ select *,
         count(*) over () as tot_dipendenti
 from emp
 order by n_riga;
+
+select 
+row_number() over (partition by DEPTNO) as numero, -- numero per riga dei deptno per dip
+ename, sal, deptno, 
+count(*) over(partition by deptno) as conteggioPerDip, job,
+max(sal) over (partition by JOB) as salarioPerJob,
+sum(sal) over() as salario_totale
+from emp;
