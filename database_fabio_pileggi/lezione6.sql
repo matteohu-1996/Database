@@ -77,3 +77,14 @@ select row_number() over (order by sal desc),
 e.*, sum(sal) over() from emp e 
 where deptno = 20 and sal>= (select min(sal) from emp where deptno = 10)
 order by sal;
+
+-- subquery multicolonna
+select * from emp
+where (sal,job) = (9000,"prog");
+
+select * from emp 
+where (job, deptno) = (select job, deptno from emp where ename="daniel");
+
+###############
+select * from emp 
+where sal in  (select min(sal) from emp group by DEPTNO);
